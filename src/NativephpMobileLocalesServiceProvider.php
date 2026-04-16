@@ -2,7 +2,10 @@
 
 namespace Developernauts\NativephpMobileLocales;
 
+use Developernauts\NativephpMobileLocales\Commands\SyncAndroidLocales;
+use Developernauts\NativephpMobileLocales\Commands\SyncAndroidManifest;
 use Developernauts\NativephpMobileLocales\Commands\SyncIosLocales;
+use Developernauts\NativephpMobileLocales\Commands\SyncLocales;
 use Illuminate\Support\ServiceProvider;
 
 class NativephpMobileLocalesServiceProvider extends ServiceProvider
@@ -26,7 +29,10 @@ class NativephpMobileLocalesServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->commands([
+                SyncLocales::class,
                 SyncIosLocales::class,
+                SyncAndroidLocales::class,
+                SyncAndroidManifest::class,
             ]);
 
             // Publishing the views.

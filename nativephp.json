@@ -1,7 +1,7 @@
 {
     "namespace": "MobileLocales",
     "hooks": {
-        "pre_compile": "nativephp-mobile-locales:sync-ios"
+        "pre_compile": "nativephp-mobile-locales:sync"
     },
     "ios": {
         "min_version": "14.0",
