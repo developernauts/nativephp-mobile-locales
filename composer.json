@@ -1,0 +1,54 @@
+{
+    "name": "developernauts/nativephp-mobile-locales",
+    "description": "A NativePHP plugin for managing supported locales and syncing language preferences between mobile apps and Laravel.",
+    "keywords": [
+        "developernauts",
+        "nativephp-mobile-locales"
+    ],
+    "homepage": "https://github.com/developernauts/nativephp-mobile-locales",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Miguel Viegas",
+            "email": "support@developernauts.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Developernauts\\NativephpMobileLocales\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Developernauts\\NativephpMobileLocales\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Developernauts\\NativephpMobileLocales\\NativephpMobileLocalesServiceProvider"
+            ],
+            "aliases": {
+                "NativephpMobileLocales": "Developernauts\\NativephpMobileLocales\\NativephpMobileLocalesFacade"
+            }
+        }
+    }
+}
