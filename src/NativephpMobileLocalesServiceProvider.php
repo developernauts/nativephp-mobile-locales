@@ -2,6 +2,7 @@
 
 namespace Developernauts\NativephpMobileLocales;
 
+use Developernauts\NativephpMobileLocales\Commands\SyncIosLocales;
 use Illuminate\Support\ServiceProvider;
 
 class NativephpMobileLocalesServiceProvider extends ServiceProvider
@@ -23,6 +24,10 @@ class NativephpMobileLocalesServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('nativephp-mobile-locales.php'),
             ], 'config');
+
+            $this->commands([
+                SyncIosLocales::class,
+            ]);
 
             // Publishing the views.
             /*$this->publishes([

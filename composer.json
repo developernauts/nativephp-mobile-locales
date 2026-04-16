@@ -7,7 +7,7 @@
     ],
     "homepage": "https://github.com/developernauts/nativephp-mobile-locales",
     "license": "MIT",
-    "type": "library",
+    "type": "nativephp-plugin",
     "authors": [
         {
             "name": "Miguel Viegas",
@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^8.2",
+        "ext-dom": "*",
         "illuminate/support": "^12.0|^13.0"
     },
     "require-dev": {
@@ -49,6 +50,9 @@
             "aliases": {
                 "NativephpMobileLocales": "Developernauts\\NativephpMobileLocales\\NativephpMobileLocalesFacade"
             }
+        },
+        "nativephp": {
+            "manifest": "nativephp.json"
         }
     }
 }
