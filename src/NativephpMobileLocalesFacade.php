@@ -5,16 +5,18 @@ namespace Developernauts\NativephpMobileLocales;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Developernauts\NativephpMobileLocales\Skeleton\SkeletonClass
+ * @method static array<int, string> all()
+ * @method static void add(string $locale)
+ * @method static void remove(string $locale)
+ * @method static bool has(string $locale)
+ * @method static array<int, string> toIOS()
+ * @method static array<int, string> toAndroid()
+ *
+ * @see \Developernauts\NativephpMobileLocales\NativephpMobileLocales
  */
 class NativephpMobileLocalesFacade extends Facade
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'nativephp-mobile-locales';
     }

@@ -53,8 +53,12 @@ class NativephpMobileLocalesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'nativephp-mobile-locales');
 
         // Register the main class to use with the facade
-        $this->app->singleton('nativephp-mobile-locales', function () {
-            return new NativephpMobileLocales;
+        $this->app->singleton('nativephp-mobile-locales', function ($app) {
+            return new NativephpMobileLocales(
+                (array) $app['config']->get('nativephp-mobile-locales.locales', [])
+            );
         });
+
+        $this->app->alias('nativephp-mobile-locales', NativephpMobileLocales::class);
     }
 }
