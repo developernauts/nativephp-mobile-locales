@@ -1,7 +1,5 @@
 <?php
 
-namespace Developernauts\NativephpMobileLocales;
-
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -18,6 +16,6 @@ class NativephpMobileLocalesFacade extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'nativephp-mobile-locales';
+        return \Developernauts\NativephpMobileLocales\NativephpMobileLocales::class;
     }
 }

@@ -29,14 +29,6 @@ class SyncIosLocales extends Command
             return self::SUCCESS;
         }
 
-        $path = $this->resolvePlistPath();
-
-        if (! is_file($path)) {
-            $this->components->error("Info.plist not found at: {$path}");
-
-            return self::FAILURE;
-        }
-
         $values = $locales->toIOS();
 
         if ($values === []) {
@@ -45,6 +37,70 @@ class SyncIosLocales extends Command
             return self::SUCCESS;
         }
 
+        $paths = $this->resolvePlistPaths();
+        $updated = [];
+
+        foreach ($paths as $path) {
+            if (! is_file($path)) {
+                if ($this->option('path')) {
+                    $this->components->error("Info.plist not found at: {$path}");
+
+                    return self::FAILURE;
+                }
+
+                continue;
+            }
+
+            if ($this->updatePlist($path, $values) === self::FAILURE) {
+                return self::FAILURE;
+            }
+
+            $updated[] = $path;
+        }
+
+        if ($updated === []) {
+            $this->components->error('No Info.plist files found.');
+
+            return self::FAILURE;
+        }
+
+        foreach ($updated as $path) {
+            $this->components->info(sprintf(
+                'CFBundleLocalizations set to [%s] in %s',
+                implode(', ', $values),
+                $path
+            ));
+        }
+
+        return self::SUCCESS;
+    }
+
+    protected function resolvePlistPaths(): array
+    {
+        if ($override = $this->option('path')) {
+            return [$override];
+        }
+
+        if ($buildPath = $this->option('build-path')) {
+            $base = rtrim($buildPath, DIRECTORY_SEPARATOR);
+
+            return [
+                $base.'/NativePHP/Info.plist',
+                $base.'/NativePHP-simulator-Info.plist',
+            ];
+        }
+
+        return [
+            base_path('nativephp/ios/NativePHP/Info.plist'),
+            base_path('nativephp/ios/NativePHP-simulator-Info.plist'),
+        ];
+    }
+
+    /**
+     * @param  array<int, string>  $values
+     */
+    protected function updatePlist(string $path, array $values): int
+    {
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
@@ -64,28 +120,9 @@ class SyncIosLocales extends Command
         }
 
         $this->setLocalizations($dom, $rootDict, $values);
-
         $dom->save($path);
 
-        $this->components->info(sprintf(
-            'CFBundleLocalizations set to: %s',
-            implode(', ', $values)
-        ));
-
         return self::SUCCESS;
-    }
-
-    protected function resolvePlistPath(): string
-    {
-        if ($override = $this->option('path')) {
-            return $override;
-        }
-
-        if ($buildPath = $this->option('build-path')) {
-            return rtrim($buildPath, DIRECTORY_SEPARATOR).'/NativePHP/Info.plist';
-        }
-
-        return base_path('nativephp/ios/NativePHP/Info.plist');
     }
 
     /**

@@ -2,8 +2,10 @@
     "name": "developernauts/nativephp-mobile-locales",
     "description": "A NativePHP plugin for managing supported locales and syncing language preferences between mobile apps and Laravel.",
     "keywords": [
-        "developernauts",
-        "nativephp-mobile-locales"
+        "nativephp",
+        "laravel",
+        "mobile",
+        "locales"
     ],
     "homepage": "https://github.com/developernauts/nativephp-mobile-locales",
     "license": "MIT",
@@ -16,13 +18,13 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-dom": "*",
         "illuminate/support": "^12.0|^13.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^10.0",
-        "phpunit/phpunit": "^11.0"
+        "orchestra/testbench": "^10.0|^11.0",
+        "phpunit/phpunit": "^11.0|^12.0|^13.0"
     },
     "autoload": {
         "psr-4": {
