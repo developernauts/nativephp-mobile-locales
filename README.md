@@ -62,15 +62,16 @@ The plugin automatically syncs your configured locales into the native iOS and A
 
 iOS reads the `CFBundleLocalizations` entries written to `Info.plist` and surfaces them in Settings and on the App Store listing.
 
-![iOS language settings showing supported app languages](docs/images/ios-languages-01.png)
+![iOS language settings showing supported app languages](https://github.com/user-attachments/assets/be09b8c3-831c-456e-a788-dffce15f68c3)
 
-![iOS App Store language list populated from configured locales](docs/images/ios-languages-02.png)
+![iOS App Store language list populated from configured locales](https://github.com/user-attachments/assets/1eebfc53-42cf-432d-9927-985780cc1412)
 
 ### Android App Language Support
 
+
 Android 13+ uses `locales_config.xml` to populate the per-app language picker in system Settings, allowing users to override the app language independently of the system locale.
 
-<img src="docs/images/android-language.png" width="360" alt="Android per-app language settings populated from locale_config.xml">
+<img src="https://github.com/user-attachments/assets/351a60a1-44f3-410d-9e92-1424a903efde" width="360" alt="Android per-app language settings populated from locale_config.xml">
 
 ---
 
