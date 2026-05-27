@@ -46,27 +46,28 @@ class SyncAndroidManifest extends Command
             return self::FAILURE;
         }
 
-        $dom = new DOMDocument('1.0', 'utf-8');
-        $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;
+        $manifest = file_get_contents($path);
 
-        if (! @$dom->load($path)) {
-            $this->components->error("Failed to parse AndroidManifest.xml at: {$path}");
+        if (str_contains($manifest, 'android:localeConfig')) {
+            $this->components->info('AndroidManifest.xml: <application android:localeConfig="@xml/locales_config"> already set.');
+
+            return self::SUCCESS;
+        }
+
+        $manifest = preg_replace(
+            '/(<application\b[^>]*?)(>)/s',
+            '$1 android:localeConfig="'.self::LOCALE_CONFIG_VALUE.'"$2',
+            $manifest,
+            1
+        );
+
+        if ($manifest === null) {
+            $this->components->error('Failed to parse AndroidManifest.xml via Regex.');
 
             return self::FAILURE;
         }
 
-        $application = $dom->getElementsByTagName('application')->item(0);
-
-        if (! $application instanceof DOMElement) {
-            $this->components->error('AndroidManifest.xml is missing an <application> element.');
-
-            return self::FAILURE;
-        }
-
-        $application->setAttributeNS(self::ANDROID_NS, 'android:localeConfig', self::LOCALE_CONFIG_VALUE);
-
-        $dom->save($path);
+        file_put_contents($path, $manifest);
 
         $this->components->info('AndroidManifest.xml: <application android:localeConfig="@xml/locales_config"> set.');
 
